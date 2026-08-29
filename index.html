@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gen 1–7 Living Dex & Hunting Planner</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div>
+        <h1>Living Dex & Hunting Planner</h1>
+        <p class="subtitle">National Pokédex #001 to #807 (US/UM Era)</p>
+      </div>
+    </header>
+
+    <section class="sync-panel" aria-label="Cloud Sync">
+      <div class="sync-status-group">
+        <div class="status-dot" id="syncDot"></div>
+        <span id="syncText">Device Storage (Offline)</span>
+      </div>
+      <div class="sync-actions">
+        <button id="quickSyncBtn" class="secondary" style="display: none;">🔄 Sync Cloud</button>
+        <button id="openModalBtn">⚙️ Cloud Settings</button>
+      </div>
+    </section>
+
+    <nav class="tab-bar">
+      <button class="tab-btn active" id="tabDexBtn">🎮 Dex Tracker</button>
+      <button class="tab-btn" id="tabPlannerBtn">
+        📋 Hunting To-Do List
+        <span class="badge-count" id="plannedCountBadge">0</span>
+      </button>
+    </nav>
+
+    <main class="dex-view active" id="dexView">
+      <section class="controls">
+        <div class="control-group">
+          <label for="search">Search</label>
+          <input type="text" id="search" placeholder="Search name or # (e.g. 150 or Mewtwo)...">
+        </div>
+
+        <div class="control-group">
+          <label for="nowPlaying" class="highlight-label">🎮 Now Playing (Auto-Assign)</label>
+          <select id="nowPlaying" class="now-playing-select"></select>
+        </div>
+
+        <div class="control-group">
+          <label for="gameFilter">Filter by Game</label>
+          <select id="gameFilter"></select>
+        </div>
+
+        <div class="control-group">
+          <label for="caughtVisibility">Caught Display Mode</label>
+          <select id="caughtVisibility">
+            <option value="grey">Show Greyed Out</option>
+            <option value="hide">Hide Caught</option>
+            <option value="show">Show Normally</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="stats-bar" aria-label="Catch Progress">
+        <div class="stats-header">
+          <span id="progress-count">Progress: 0 / 807</span>
+          <span id="progress-percent">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+      </section>
+
+      <section class="grid" id="pokemonGrid"></section>
+    </main>
+
+    <section class="planner-view" id="plannerView">
+      <div class="controls planner-controls">
+        <div class="control-group">
+          <label for="plannerGameFilter" class="highlight-label">🗺️ Filter To-Do by Game</label>
+          <select id="plannerGameFilter"></select>
+        </div>
+        <div class="control-group">
+          <label for="plannerStatusFilter">Show Status</label>
+          <select id="plannerStatusFilter">
+            <option value="pending">Show Pending Hunts Only</option>
+            <option value="all">Show All (Including Caught)</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="plannerContainer">
+        </div>
+    </section>
+
+  </div>
+
+  <div class="modal-overlay" id="cloudModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">☁️ Personal Cloud Sync</h2>
+        <button class="modal-close" id="closeModalBtn" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Your data is always saved in this browser. To sync across your devices using Google Sheets, paste your private <strong>Google Apps Script Web App URL</strong> below.</p>
+        
+        <div class="control-group" style="margin-top: 8px;">
+          <label for="modalUrlInput">Apps Script Web App URL</label>
+          <input type="text" id="modalUrlInput" placeholder="https://script.google.com/macros/s/.../exec">
+        </div>
+
+        <p class="privacy-note">
+          🔒 <strong>Privacy Note:</strong> This URL is saved strictly in your local device storage.
+        </p>
+      </div>
+      <div class="modal-actions">
+        <button id="disconnectBtn" class="danger" style="display: none;">Disconnect Sheet</button>
+        <button id="saveAndSyncBtn">Save & Sync</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
